@@ -1,9 +1,9 @@
 const axios = require("axios");
 
 module.exports.config = {
-    name: "ai2",
+    name: "ae",
     version: "1.0.0",
-    credits: "chill",
+    credits: "aesther",
     description: "Interact with Llama AI",
     hasPrefix: false,
     cooldown: 5,
@@ -25,8 +25,8 @@ module.exports.run = async function ({ api, event, args }) {
         });
 
         try {
-            const response = await axios.get(`https://joshweb.click/ai/llama-3-8b?q=${encodeURIComponent(q)}&uid=100`);
-            const answer = response.data.result;
+            const response = await axios.get(`https://deku-rest-api.gleeze.com/new/gpt-3_5-turbo?prompt=${encodeURIComponent(q)}`);
+            const answer = response.data.result.reply;
 
             const formattedResponse = `👾 Iᒪᒪᗰᗩ\n━━━━━━━━━━━━━━━━━━\n${answer}\n━━━━━━━━━━━━━━━━━━`;
 
