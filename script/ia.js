@@ -31,8 +31,8 @@ module.exports.run = async function({ api, event, args }) {
     }
     
     try {
-        const { data } = await axios.get(`https://sandipbaruwal.onrender.com/gemini?prompt=${encodeURIComponent(input)}`);
-        let response = data.answer;
+        const { data } = await axios.get(`https://api.kenliejugarap.com/freegpt4o8k/?question=${encodeURIComponent(input)}`);
+        let response = data.response;
         
         // Replace characters with stylized characters from fonts
         response = response.split('').map(char => {
