@@ -14,7 +14,7 @@ module.exports.run = async function ({ api, event, args }) {
     try {
         let q = args.join(" ");
         if (!q) {
-            return api.sendMessage("[ ❗ ] - Missing question for the ae\n\n▼・ᴥ・▼ ➪ [ + ]", event.threadID, event.messageID);
+            return api.sendMessage("[ ‼️ ] - Missing question for the ae\n\nฅ^•ﻌ•^ฅ ", event.threadID, event.messageID);
         }
 
         const initialMessage = await new Promise((resolve, reject) => {
@@ -25,8 +25,8 @@ module.exports.run = async function ({ api, event, args }) {
         });
 
         try {
-            const response = await axios.get(`https://deku-rest-api.gleeze.com/new/gpt-3_5-turbo?prompt=${encodeURIComponent(q)}`);
-            const answer = response.data.result.reply;
+            const response = await axios.get(`https://api.kenliejugarap.com/freegpt4o8k/?question=${encodeURIComponent(q)}`);
+            const answer = response.data.response;
 
             const formattedResponse = `[💬] ᗩᗴ :\n\n${answer}\n\n⚪🔵🔴`;
 
