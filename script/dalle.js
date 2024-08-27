@@ -16,17 +16,18 @@ module.exports.run = async function ({ api, event, args }) {
     try {
         let chilli = args.join(" ");
         if (!chilli) {
-            return api.sendMessage("[ ❗ ] - Missing prompt for the DALL-E command", event.threadID, event.messageID);
+            return api.sendMessage("**𝗛𝗆𝗆𝗆, 𝗐𝗁𝖺𝗍 𝗐𝗈𝗎𝗅𝖽 𝗒𝗈𝗎 𝗅𝗂𝗄𝖾 𝗆𝖾 𝗍𝗈 𝖼𝗋𝖾𝖺𝗍𝖾?** 💫 ...", event.threadID, event.messageID);
         }
 
-        api.sendMessage("Generating image, please wait...", event.threadID, async (err, info) => {
+        api.sendMessage("🕟 | 𒊹︎︎︎𒊹︎︎︎𒊹︎︎︎", event.threadID, async (err, info) => {
             if (err) {
                 console.error(err);
                 return api.sendMessage("An error occurred while processing your request.", event.threadID);
             }
 
             try {
-                const pogi = await axios.get(`https://joshweb.click/dalle?prompt=${encodeURIComponent(chilli)}`, { responseType: 'arraybuffer' });
+                const models = "12";  // Replace with your model if needed
+                const pogi = await axios.get(`https://smfahim.onrender.com/prodia?prompt=${encodeURIComponent(chilli)}&model=${models}`, { responseType: 'arraybuffer' });
                 const imagePath = path.join(__dirname, "dalle_image.png");
                 
                 fs.writeFileSync(imagePath, pogi.data);
@@ -34,12 +35,16 @@ module.exports.run = async function ({ api, event, args }) {
                 const poganda = await api.getUserInfo(event.senderID);
                 const requesterName = poganda[event.senderID].name;
 
+                // Prepare image for sending
+                const attachment = fs.createReadStream(imagePath);
+
                 api.sendMessage({
-                    body: `Here is the image you requested:\n\nPrompt: ${chilli}\n\nRequested by: ${requesterName}`,
-                    attachment: fs.createReadStream(imagePath)
+                    body: `🔵🔴⚪ 𝗚𝗘𝗡𝗘𝗥𝗔𝗧𝗘𝗗 𝗣𝗜𝗖 :\n${chilli}\n\nRequested by: ${requesterName}`,
+                    attachment: attachment
                 }, event.threadID, () => {
-                    fs.unlinkSync(imagePath);
+                    fs.unlinkSync(imagePath);  // Clean up the image file
                 });
+
             } catch (mantika) {
                 console.error(mantika);
                 api.sendMessage("An error occurred while processing your request.", event.threadID);
