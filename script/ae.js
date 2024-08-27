@@ -18,7 +18,7 @@ module.exports.run = async function ({ api, event, args }) {
         }
 
         const initialMessage = await new Promise((resolve, reject) => {
-            api.sendMessage("Answering plss wait...", event.threadID, (err, info) => {
+            api.sendMessage("[⚪🔵🔴....]", event.threadID, (err, info) => {
                 if (err) return reject(err);
                 resolve(info);
             });
@@ -28,7 +28,7 @@ module.exports.run = async function ({ api, event, args }) {
             const response = await axios.get(`https://deku-rest-api.gleeze.com/new/gpt-3_5-turbo?prompt=${encodeURIComponent(q)}`);
             const answer = response.data.result.reply;
 
-            const formattedResponse = `👾 Iᒪᒪᗰᗩ\n━━━━━━━━━━━━━━━━━━\n${answer}\n━━━━━━━━━━━━━━━━━━`;
+            const formattedResponse = `[💬] ᗩᗴ \n\n${answer}\n\n⚪🔵🔴`;
 
             await api.editMessage(formattedResponse, initialMessage.messageID);
         } catch (error) {
